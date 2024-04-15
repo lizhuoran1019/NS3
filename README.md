@@ -1,3 +1,14 @@
+## 注意事项
+- 使用msvc编译
+  - 若使用gcc，请切换到 master 分支
+  - 因为 msvc 不支持扩展语法，本分支修改了一些报错
+- 若使用vscode的cmake插件，请设置 `"cmake.setBuildTypeOnMultiConfig": true`
+  - 否则配置cmake时，`string(TOUPPER ...)` 会报错
+- 需要将动态库路径添加到系统的环境变量中
+  - 一般来说为工程目录下的 `build` 文件夹
+- 请在cmake配置缓存中打开 `NS_LOG` 选项
+  - 否则没有输出
+
 
 The Network Simulator, Version 3
 ================================
