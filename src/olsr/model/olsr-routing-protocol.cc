@@ -1634,7 +1634,7 @@ void
 RoutingProtocol::QueueMessage (const olsr::MessageHeader &message, Time delay)
 {
   m_queuedMessages.push_back (message);
-  if (not m_queuedMessagesTimer.IsRunning ())
+  if (! m_queuedMessagesTimer.IsRunning ())
     {
       m_queuedMessagesTimer.SetDelay (delay);
       m_queuedMessagesTimer.Schedule ();
@@ -1930,14 +1930,16 @@ RoutingProtocol::AddHostNetworkAssociation (Ipv4Address networkAddr, Ipv4Mask ne
     }
   // If the tuple does not already exist, add it to the list of local HNA associations.
   NS_LOG_INFO ("Adding HNA association for network " << networkAddr << "/" << netmask << ".");
-  m_state.InsertAssociation ( (Association) { networkAddr, netmask} );
+  Association newAssociation = { networkAddr, netmask };
+  m_state.InsertAssociation (newAssociation);
 }
 
 void
 RoutingProtocol::RemoveHostNetworkAssociation (Ipv4Address networkAddr, Ipv4Mask netmask)
 {
   NS_LOG_INFO ("Removing HNA association for network " << networkAddr << "/" << netmask << ".");
-  m_state.EraseAssociation ( (Association) { networkAddr, netmask} );
+  Association association = { networkAddr, netmask };
+  m_state.EraseAssociation (association);
 }
 
 void
@@ -2872,7 +2874,7 @@ RoutingProtocol::FindSendEntry (RoutingTableEntry const &entry,
   outEntry = entry;
   while (outEntry.destAddr != outEntry.nextAddr)
     {
-      if (not Lookup (outEntry.nextAddr, outEntry))
+      if (! Lookup (outEntry.nextAddr, outEntry))
         {
           return false;
         }

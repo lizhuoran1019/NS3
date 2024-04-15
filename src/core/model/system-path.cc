@@ -28,6 +28,7 @@
 #include <cerrno>
 #include <cstring>  // strlen
 #include <tuple>
+#include <direct.h>
 
 #if defined (HAVE_DIRENT_H) && defined (HAVE_SYS_TYPES_H) && !defined(_MSC_VER)
 /** Do we have an \c opendir function? */
@@ -414,7 +415,7 @@ MakeDirectories (std::string path)
 
 #if defined(HAVE_MKDIR_H)
     #ifdef __WIN32__
-          makeDirErr = mkdir (tmp.c_str ());
+          makeDirErr = _mkdir (tmp.c_str ());
     #else
           makeDirErr = mkdir (tmp.c_str (), S_IRWXU);
     #endif

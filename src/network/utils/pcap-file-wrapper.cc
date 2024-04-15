@@ -185,9 +185,9 @@ PcapFileWrapper::Read (Time &t)
   uint32_t readLen;
 
   uint32_t maxBytes=65536;
-  uint8_t  datbuf[maxBytes];
+  std::vector<uint8_t> datbuf(maxBytes);
 
-  m_file.Read (datbuf,maxBytes,tsSec,tsUsec,inclLen,origLen,readLen);
+  m_file.Read (datbuf.data(),maxBytes,tsSec,tsUsec,inclLen,origLen,readLen);
 
   if (m_file.Fail())
     {
@@ -203,7 +203,7 @@ PcapFileWrapper::Read (Time &t)
       t = MicroSeconds(tsSec*1000000ULL+tsUsec);
     }
 
-  return Create<Packet> (datbuf,origLen);
+  return Create<Packet> (datbuf.data(),origLen);
 
 }
 

@@ -1366,10 +1366,14 @@ ThreeGppChannelModel::GetNewChannel (Vector locUT, Ptr<const ChannelCondition> c
         }
     }
 
-  double rayAoa_radian[numReducedCluster][raysPerCluster]; //rayAoa_radian[n][m], where n is cluster index, m is ray index
-  double rayAod_radian[numReducedCluster][raysPerCluster]; //rayAod_radian[n][m], where n is cluster index, m is ray index
-  double rayZoa_radian[numReducedCluster][raysPerCluster]; //rayZoa_radian[n][m], where n is cluster index, m is ray index
-  double rayZod_radian[numReducedCluster][raysPerCluster]; //rayZod_radian[n][m], where n is cluster index, m is ray index
+  // double rayAoa_radian[numReducedCluster][raysPerCluster]; //rayAoa_radian[n][m], where n is cluster index, m is ray index
+  // double rayAod_radian[numReducedCluster][raysPerCluster]; //rayAod_radian[n][m], where n is cluster index, m is ray index
+  // double rayZoa_radian[numReducedCluster][raysPerCluster]; //rayZoa_radian[n][m], where n is cluster index, m is ray index
+  // double rayZod_radian[numReducedCluster][raysPerCluster]; //rayZod_radian[n][m], where n is cluster index, m is ray index
+  std::vector<std::vector<double>> rayAoa_radian(numReducedCluster, std::vector<double>(raysPerCluster));
+  std::vector<std::vector<double>> rayAod_radian(numReducedCluster, std::vector<double>(raysPerCluster));
+  std::vector<std::vector<double>> rayZoa_radian(numReducedCluster, std::vector<double>(raysPerCluster));
+  std::vector<std::vector<double>> rayZod_radian(numReducedCluster, std::vector<double>(raysPerCluster));
 
   for (uint8_t nInd = 0; nInd < numReducedCluster; nInd++)
     {

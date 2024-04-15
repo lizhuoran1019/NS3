@@ -72,18 +72,17 @@ extern "C"
 static uint32_t lookuphash (unsigned char* k, uint32_t length, uint32_t level)
 {
   NS_LOG_FUNCTION (k << length << level);
-#define mix(a, b, c) \
-  ({ \
-     (a) -= (b); (a) -= (c); (a) ^= ((c) >> 13); \
-     (b) -= (c); (b) -= (a); (b) ^= ((a) << 8);  \
-     (c) -= (a); (c) -= (b); (c) ^= ((b) >> 13); \
-     (a) -= (b); (a) -= (c); (a) ^= ((c) >> 12); \
-     (b) -= (c); (b) -= (a); (b) ^= ((a) << 16); \
-     (c) -= (a); (c) -= (b); (c) ^= ((b) >> 5);  \
-     (a) -= (b); (a) -= (c); (a) ^= ((c) >> 3);  \
-     (b) -= (c); (b) -= (a); (b) ^= ((a) << 10); \
-     (c) -= (a); (c) -= (b); (c) ^= ((b) >> 15); \
-   })
+#define mix(a, b, c) do { \
+    (a) -= (b); (a) -= (c); (a) ^= ((c) >> 13); \
+    (b) -= (c); (b) -= (a); (b) ^= ((a) << 8); \
+    (c) -= (a); (c) -= (b); (c) ^= ((b) >> 13); \
+    (a) -= (b); (a) -= (c); (a) ^= ((c) >> 12); \
+    (b) -= (c); (b) -= (a); (b) ^= ((a) << 16); \
+    (c) -= (a); (c) -= (b); (c) ^= ((b) >> 5); \
+    (a) -= (b); (a) -= (c); (a) ^= ((c) >> 3); \
+    (b) -= (c); (b) -= (a); (b) ^= ((a) << 10); \
+    (c) -= (a); (c) -= (b); (c) ^= ((b) >> 15); \
+} while(0)
 
   typedef uint32_t  ub4;   /* unsigned 4-byte quantities */
   uint32_t a = 0;
